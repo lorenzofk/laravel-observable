@@ -25,6 +25,11 @@ trait Observable
 
         try {
             $observerProperty = $model->getProperty('observer');
+
+            if ($observerProperty->isPrivate() || $observerProperty->isProtected()) {
+                $observerProperty->setAccessible(true);
+            }
+
             $observerClasses = $observerProperty->getValue(new static);
         } catch (ReflectionException) {
             $observerClasses = 'App\\Observers\\'.$model->getShortName().'Observer';
