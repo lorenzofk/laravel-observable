@@ -1,5 +1,5 @@
 {
-    "name": "lorenzokniss/laravel-observable",
+    "name": "lorenzofk/laravel-observable",
     "description": "Boot the Observable classes automatically into the Laravel models",
     "type": "library",
     "require": {

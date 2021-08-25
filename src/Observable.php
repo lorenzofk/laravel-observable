@@ -1,6 +1,6 @@
 <?php
 
-namespace LorenzoKniss\Observable;
+namespace lorenzofk\Observable;
 
 use ReflectionClass;
 use ReflectionException;
