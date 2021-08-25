@@ -1,0 +1,34 @@
+{
+    "name": "lorenzokniss/laravel-observable",
+    "description": "Boot the Observable classes automatically into the Laravel models",
+    "type": "library",
+    "require": {
+        "php": "^7.3|^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lorenzo Kniss",
+            "email": "lorenzo.kniss@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "lorenzofk\\Observable\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "lorenzofk\\Observable\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
