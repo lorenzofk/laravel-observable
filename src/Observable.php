@@ -10,7 +10,7 @@ trait Observable
 {
     public static function bootObservable()
     {
-        $observerClass = static::getObserverPropertyClass();
+        $observerClass = static::getObserverClassName();
 
         if (empty($observerClass)) {
             return;
@@ -19,7 +19,7 @@ trait Observable
         static::observe($observerClass);
     }
 
-    protected static function getObserverPropertyClass()
+    protected static function getObserverClassName()
     {
         $model = new ReflectionClass(self::class);
 
@@ -35,25 +35,27 @@ trait Observable
             throw new Exception('Please make sure the $observer property is defined in your model.');
         }
 
-        static::checkIfTheClassesExist($observerClasses);
+        static::validateObserverClasses($observerClasses);
 
         return $observerClasses;
     }
 
-    protected static function checkIfTheClassesExist($classes)
+    protected static function validateObserverClasses($classes)
     {
-        if (is_string($classes)) {
-            if (! class_exists($classes)) {
-                throw new Exception("The Observable class [{$classes}] does not exists.");
-            }
-
-            return $classes;
+        if (! is_string($classes) && ! is_array($classes)) {
+            throw new Exception('The Observer class must be an array or a string.');
         }
 
-        foreach ($classes as $class) {
-            if (! class_exists($class)) {
-                throw new Exception("The Observable class [{$class}] does not exists.");
+        if (is_array($classes)) {
+            foreach ($classes as $class) {
+                if (! class_exists($class)) {
+                    throw new Exception("The Observer class [{$class}] does not exists.");
+                }
             }
+        }
+
+        if (! class_exists($classes)) {
+            throw new Exception("The Observer class [{$classes}] does not exists.");
         }
     }
 }
