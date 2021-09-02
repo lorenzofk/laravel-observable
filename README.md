@@ -10,9 +10,17 @@ You can install the package via composer:
 composer require lorenzofk/laravel-observable
 ```
 
+## Why to use?
+
+I've decided to create this tool to solve a problem we were facing on a big project I work on. 
+
+Usually, we have to define the Model and its Observer in the `app/Providers/AppServiceProvider.php` class or even to create a specific `Provider` to define this relationship.
+
+With this `Trait` now we are able to define the `Observer` in the `Model` itself, which is much easier and quicker to do.
+
 ## Usage
 
-Use the `Observable` trait in any Eloquent Model, you must also add the `$observer` property.
+Use the `Observable` trait in any Eloquent Model, you must also add the `$observer` property. This property must be a `string` or an `array`.
 
 ```php
 
@@ -26,6 +34,8 @@ class User extends Model
 }
 
 ```
+
+And that's it! You don't need to do anything else.
 
 ### Testing
 
