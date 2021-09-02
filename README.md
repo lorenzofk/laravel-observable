@@ -10,6 +10,14 @@ You can install the package via composer:
 composer require lorenzofk/laravel-observable
 ```
 
+## About
+
+Laravel Observable.
+
+If you work with Laravel, you've probably already needed to use the `Observer` pattern to observe specific events in your `Models`.
+
+So, this package provides an easy way to define one or more `Observer` for your models.
+
 ## Why to use?
 
 I've decided to create this tool to solve a problem we were facing on a big project I work on. 
