@@ -2,15 +2,13 @@
 
 namespace lorenzofk\Observable;
 
-use ReflectionClass;
-use ReflectionException;
 use Exception;
 
 trait Observable
 {
     public static function bootObservable()
     {
-        $observerClass = static::getObserverClassName();
+        $observerClass = static::resolveObserverClassName();
 
         if (empty($observerClass)) {
             return;
@@ -19,29 +17,21 @@ trait Observable
         static::observe($observerClass);
     }
 
-    protected static function getObserverClassName()
+    protected static function resolveObserverClassName()
     {
-        $model = new ReflectionClass(self::class);
+        $model = new static();
+        
+        static::validateObserverClasses($model->observer);
 
-        try {
-            $observerProperty = $model->getProperty('observer');
-
-            if ($observerProperty->isPrivate() || $observerProperty->isProtected()) {
-                $observerProperty->setAccessible(true);
-            }
-
-            $observerClasses = $observerProperty->getValue(new static);
-        } catch (ReflectionException $e) {
-            throw new Exception('Please make sure the $observer property is defined in your model.');
-        }
-
-        static::validateObserverClasses($observerClasses);
-
-        return $observerClasses;
+        return $model->observer;
     }
 
     protected static function validateObserverClasses($classes)
     {
+        if (is_null($classes)) {
+            throw new Exception('Please make sure the $observer property is defined in your model.');
+        }
+
         if (! is_string($classes) && ! is_array($classes)) {
             throw new Exception('The Observer class must be an array or a string.');
         }
